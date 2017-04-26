@@ -57,7 +57,7 @@ public class IndexBuilder {
 	static long startTime = System.currentTimeMillis();
 	static int nonZero =0;
 	
-	static String inputFile="triOutputA.txt";
+	static String inputFile="outputMatric1_ab.txt";
 	
 	static ArrayList<String> markSe =new ArrayList<>();
 	static ArrayList<String> markCl =new ArrayList<>();
@@ -74,7 +74,7 @@ public class IndexBuilder {
 		//connAllData();
 		//featureExtration();
 		String outputfile =clustering();	
-		System.out.println("=====");
+		//System.out.println("=====");
     	buildFlag();
     	cluster2(outputfile);
     }
@@ -389,12 +389,12 @@ public class IndexBuilder {
 	public static String clustering() throws IOException, InterruptedException{
 
 			String openApp = "cmd.exe /c  vcluster.exe";
-			String parameters ="";
-			String output = "-clustfile=2cluster3AT.txt";
-			String outputName ="2cluster3AT.txt";
+			String parameters ="-crfun=e1";
+			String outputName ="TAfor1withe1.txt";
+			String output = "-clustfile="+outputName;
 			String ClusterNum = "2";
-			String cmd= openApp+""+parameters+" "+output+" "+inputFile+" "+ClusterNum;
-			System.out.println(cmd);
+			String cmd= openApp+" "+parameters+" "+output+" "+inputFile+" "+ClusterNum;
+			//System.out.println(cmd);
 			Process process = Runtime.getRuntime().exec(cmd);
 			
 		    BufferedInputStream in = new BufferedInputStream(process.getInputStream());  
@@ -489,20 +489,17 @@ public class IndexBuilder {
 			}
     	 }
     	 System.out.println(nn+" "+n0+" "+n1);
-    	 System.out.println("s0: "+s0);
-    	 System.out.println("u0: "+u0);
-    	 System.out.println("s1: "+s1);
-    	 System.out.println("u1: "+u1);
-    	 System.out.println(s0);
-    	 System.out.println(s1);
-    	 System.out.println(u0);
-    	 System.out.println(u1);
-    	 System.out.println(s2);
-    	 System.out.println(u2);
+    	 System.out.println("TP: "+s0);
+    	 System.out.println("FN: "+s1);
+    	 System.out.println("FP: "+u0);
+    	 System.out.println("TN: "+u1);
+
+    	 System.out.println("PLost: "+s2);
+    	 System.out.println("NLost: "+u2);
     	 
-    	 System.out.println("0: "+  (float)s0/(float)(s0+u0));
-    	 System.out.println("1: "+  (float)s1/(float)(s1+u1));
-    	 System.out.println("1: "+  (float)s0/(float)(s0+s1));
+    	 System.out.println("recall: "+  (float)s0/(float)(s0+s1));
+    	 System.out.println("precision: "+  (float)s0/(float)(s0+u0));
+    	 System.out.println("Filtration: "+  (float)(s0+u0)/(float)(s0+s1+u1+u2+u0+s2));
 
 
 
